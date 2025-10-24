@@ -26,8 +26,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 sys.setrecursionlimit(15000)
-# script_location = Path('__filepath__').absolute()
-script_location = Path(__file__).parent.absolute()
+script_location = Path('__filepath__').absolute()
+# script_location = Path(__file__).parent.absolute()
 
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 def main():
