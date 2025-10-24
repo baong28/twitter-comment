@@ -26,7 +26,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 sys.setrecursionlimit(15000)
-script_location = Path('__filepath__').absolute()
+# script_location = Path('__filepath__').absolute()
+script_location = Path(__file__).parent.absolute()
 
 # Streamlit encourages well-structured code, like starting execution in a main() function.
 def main():
@@ -79,14 +80,14 @@ def load_dataframe():
         Load train model from Google Drive once
     """
     url = "https://drive.google.com/uc?id=VcDCyuzB8zqii-ti188aEjzqbM_1PX3U" 
-    zip_path = Path("DataFrame.zip")
-    extract_path = Path(__file__).parent / "DataFrame"
-    extract_path.mkdir(exist_ok=True)
+    zip_path = "DataFrame.zip"
+    extract_path = script_location / "DataFrame"
 
     if not zip_path.exists():
         with st.spinner("🔄 Đang tải DataFrame từ Google Drive..."):
-            gdown.download(url, str(zip_path), quiet=False)
+            gdown.download(url, zip_path, quiet=False)
 
+    os.makedirs(extract_path, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         zip_ref.extractall(extract_path)
 
