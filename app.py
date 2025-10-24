@@ -18,7 +18,6 @@ from pathlib import Path
 from PIL import Image
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
-from pathlib import Path
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
@@ -54,7 +53,8 @@ def load_model():
     """
         Load train model from Google Drive once
     """
-    url = "https://drive.google.com/uc?id=VcDCyuzB8zqii-ti188aEjzqbM_1PX3U" 
+    file_id = "VcDCyuzB8zqii-ti188aEjzqbM_1PX3U"
+    url = f"https://drive.google.com/uc?id={file_id}" 
     output_path = "model1.sav"
 
     if not os.path.exists(output_path):
@@ -79,12 +79,13 @@ def load_dataframe():
     """
         Load train model from Google Drive once
     """
-    url = "https://drive.google.com/uc?id=VcDCyuzB8zqii-ti188aEjzqbM_1PX3U" 
+    file_id = "VcDCyuzB8zqii-ti188aEjzqbM_1PX3U"
+    url = f"https://drive.google.com/uc?id={file_id}" 
     zip_path = "DataFrame.zip"
     extract_path = script_location / "DataFrame"
 
-    if not zip_path.exists():
-        with st.spinner("🔄 Đang tải DataFrame từ Google Drive..."):
+    if not os.path.exists(zip_path):
+        with st.spinner("Loading DataFrame from Google Drive..."):
             gdown.download(url, zip_path, quiet=False)
 
     os.makedirs(extract_path, exist_ok=True)
@@ -96,33 +97,10 @@ def load_dataframe():
             if file.endswith(".sav"):
                 with open(os.path.join(root, file), "rb") as f:
                     df = pickle.load(f)
-                st.success("✅ DataFrame đã được load thành công!")
+                st.success("DataFrame has been loaded successfully!")
                 return df
 
-    raise FileNotFoundError("❌ Không tìm thấy file .sav trong ZIP.")
-
-    # if not os.path.exists(zip_path):
-    #     with st.spinner("🔄 Loading train model from Google Drive..."):
-    #         gdown.download(url, zip_path, quiet=False)
-
-    # zip_path = 'DataFrame.zip'
-    # extract_path = script_location / "DataFrame"
-
-    # os.makedirs(extract_path, exist_ok=True)
-
-    # with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-    #     zip_ref.extractall(extract_path)
-
-    # # Tìm file .sav trong thư mục giải nén
-    # for root, _, files in os.walk(extract_path):
-    #     for file in files:
-    #         if file.endswith('.sav'):
-    #             sav_path = os.path.join(root, file)
-    #             with open(sav_path, 'rb') as f:
-    #                 df = pickle.load(f)
-    #             return df
-
-    # raise FileNotFoundError("Không tìm thấy file .sav trong file zip!")
+    raise FileNotFoundError("Could not found file .sav in ZIP.")
 
 @st.cache_data 
 def add_stop_word():
