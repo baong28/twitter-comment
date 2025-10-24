@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 import streamlit as st
 import pandas as pd
-import re
-import pickle
+import re, os, sys, urllib
 import zipfile
+import gdown
+import pickle
 import nltk
 nltk.download('stopwords')
 
+#from huggingface_hub import hf_hub_download
 import seaborn as sns
 import matplotlib.pyplot as plt
 import wordcloud as wordcloud
-import os, urllib
-import sys
 import matplotlib.pyplot as plt
 from collections import Counter
 from pathlib import Path
@@ -49,12 +49,30 @@ def main():
         
 # Load saved model
 @st.cache_resource
-def load_model():
-    '''Load save trained logistics regression model from pickle file
+# def load_model():
+#     '''Load save trained logistics regression model from pickle file
     
-    '''
-    model1 = pickle.load(open('model1.sav', 'rb'))
-    return model1
+#     '''
+#     model1 = pickle.load(open('model1.sav', 'rb'))
+#     return model1
+
+@st.cache_resource
+def load_model():
+    """
+        Load train model from Google Drive once
+    """
+    url = "https://drive.google.com/uc?id=VcDCyuzB8zqii-ti188aEjzqbM_1PX3U" 
+    output_path = "model1.sav"
+
+    if not os.path.exists(output_path):
+        with st.spinner("🔄 Loading train model from Google Drive..."):
+            gdown.download(url, output_path, quiet=False)
+
+    with open(output_path, "rb") as f:
+        model = pickle.load(f)
+
+    st.success("Model has been loaded successfully !!")
+    return model
 
 @st.cache_resource
 # def load_dataframe():
