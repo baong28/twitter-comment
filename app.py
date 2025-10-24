@@ -49,14 +49,6 @@ def main():
         
 # Load saved model
 @st.cache_resource
-# def load_model():
-#     '''Load save trained logistics regression model from pickle file
-    
-#     '''
-#     model1 = pickle.load(open('model1.sav', 'rb'))
-#     return model1
-
-@st.cache_resource
 def load_model():
     """
         Load train model from Google Drive once
@@ -83,25 +75,53 @@ def load_model():
 #     return df
 
 def load_dataframe():
-    """Load DataFrame từ file .zip, tự động tìm file .sav"""
-    zip_path = 'DataFrame.zip'
-    extract_path = script_location / "DataFrame"
+    """
+        Load train model from Google Drive once
+    """
+    url = "https://drive.google.com/uc?id=VcDCyuzB8zqii-ti188aEjzqbM_1PX3U" 
+    zip_path = Path("DataFrame.zip")
+    extract_path = Path(__file__).parent / "DataFrame"
+    extract_path.mkdir(exist_ok=True)
 
-    os.makedirs(extract_path, exist_ok=True)
+    if not zip_path.exists():
+        with st.spinner("🔄 Đang tải DataFrame từ Google Drive..."):
+            gdown.download(url, str(zip_path), quiet=False)
 
-    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    with zipfile.ZipFile(zip_path, "r") as zip_ref:
         zip_ref.extractall(extract_path)
 
-    # Tìm file .sav trong thư mục giải nén
     for root, _, files in os.walk(extract_path):
         for file in files:
-            if file.endswith('.sav'):
-                sav_path = os.path.join(root, file)
-                with open(sav_path, 'rb') as f:
+            if file.endswith(".sav"):
+                with open(os.path.join(root, file), "rb") as f:
                     df = pickle.load(f)
+                st.success("✅ DataFrame đã được load thành công!")
                 return df
 
-    raise FileNotFoundError("Không tìm thấy file .sav trong file zip!")
+    raise FileNotFoundError("❌ Không tìm thấy file .sav trong ZIP.")
+
+    # if not os.path.exists(zip_path):
+    #     with st.spinner("🔄 Loading train model from Google Drive..."):
+    #         gdown.download(url, zip_path, quiet=False)
+
+    # zip_path = 'DataFrame.zip'
+    # extract_path = script_location / "DataFrame"
+
+    # os.makedirs(extract_path, exist_ok=True)
+
+    # with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    #     zip_ref.extractall(extract_path)
+
+    # # Tìm file .sav trong thư mục giải nén
+    # for root, _, files in os.walk(extract_path):
+    #     for file in files:
+    #         if file.endswith('.sav'):
+    #             sav_path = os.path.join(root, file)
+    #             with open(sav_path, 'rb') as f:
+    #                 df = pickle.load(f)
+    #             return df
+
+    # raise FileNotFoundError("Không tìm thấy file .sav trong file zip!")
 
 @st.cache_data 
 def add_stop_word():
