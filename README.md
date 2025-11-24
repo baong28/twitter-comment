@@ -47,15 +47,16 @@ streamlit run app.py
 
 ## III. Project Structure
 ```
-├── requirements.txt          # Danh sách toàn bộ thư viện cần thiết
-├── train.py                  # Script huấn luyện mô hình với dữ liệu Kaggle (twitter-training.csv)
-├── test.py                   # Script kiểm tra accuracy với dữ liệu twitter-validation.csv → xuất 'final_result.csv'
-├── app.py                    # Chạy ứng dụng Streamlit để hiển thị kết quả mô hình
-├── final_result.csv          # Kết quả dự đoán: 
-│                             #   - Sentiment_test: giá trị dự đoán
-│                             #   - Sentiment: giá trị thật
-├── DataFrame.zip             # Chứa file DataFrame.sav — cần giải nén sau khi clone repo (theo User Guide Step 1)
-├── model1.sav                # Mô hình đã được huấn luyện và lưu lại
-└── twitter-practices.ipynb   # Notebook Jupyter dùng để thực hành
-
+III. Project Structure
+├── requirements.txt          # List of all required libraries
+├── train.py                  # Script to train the model using Kaggle dataset (twitter-training.csv)
+├── test.py                   # Script to test model accuracy with dataset (twitter-validation.csv) → outputs 'final_result.csv'
+├── app.py                    # Script to run the Streamlit app to display model results
+├── final_result.csv          # Prediction results:
+│                             #   - Sentiment_test: predicted values
+│                             #   - Sentiment: true values
+├── DataFrame.zip             # Contains DataFrame.sav — unzip this file after cloning the repository (see User Guide Step 1)
+├── model1.sav                # Saved trained model
+└── twitter-practices.ipynb   # Jupyter Notebook for practice
 ```
+
