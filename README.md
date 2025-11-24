@@ -47,7 +47,6 @@ streamlit run app.py
 
 ## III. Project Structure
 ```
-III. Project Structure
 ├── requirements.txt          # List of all required libraries
 ├── train.py                  # Script to train the model using Kaggle dataset (twitter-training.csv)
 ├── test.py                   # Script to test model accuracy with dataset (twitter-validation.csv) → outputs 'final_result.csv'
@@ -59,4 +58,5 @@ III. Project Structure
 ├── model1.sav                # Saved trained model
 └── twitter-practices.ipynb   # Jupyter Notebook for practice
 ```
+
 
