@@ -2,18 +2,18 @@
 
 ## I. Concept
 
-###  Twitter Sentiment Analysis Dataset:
-#### This is an entity-level sentiment analysis dataset of social network comments on Twitter. Given a message and an entity, the task is to judge the sentiment of the message about the entity.
-#### This is a multi-class classification problem, which simply means the dataset has more than 2 classes (binary classifier). The three classes corresponding to sentiments:
+Twitter Sentiment Analysis Dataset:
++ This is an entity-level sentiment analysis dataset of social network comments on Twitter. Given a message and an entity, the task is to judge the sentiment of the message about the entity.
++ This is a multi-class classification problem, which simply means the dataset has more than 2 classes (binary classifier). The three classes corresponding to sentiments:
 
 ```
      -1 - Negative
       0 - Neutral
       1 - Positive
 ```
-#### We regard messages that are not relevant to the entity (i.e. Irrelevant) as Neutral.
+We regard messages that are not relevant to the entity (i.e. Irrelevant) as Neutral.
 
-### >> Check out video below <<
+>> Check out video below <<
 
 ![](twitter-gif.gif)
 
@@ -58,5 +58,6 @@ streamlit run app.py
 ├── model1.sav                # Saved trained model
 └── twitter-practices.ipynb   # Jupyter Notebook for practice
 ```
+
 
 
